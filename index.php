@@ -2,25 +2,34 @@
 <html>
 <head>
   <style>
+      body{
+          display:flex;
+          justify-content:center;
+          font-family:"sans-serif";
+      }
       #compteur.warning{
           color:red;
       }
       #mot{
           margin-top:15%;
-          display:flex;
-          justify-content:center;
       }
       #mot .letter{
-          font-size:15px;
+          font-size:1vw;
           border-bottom:2px solid black;
           width:40px;
           height:40px;
           margin-right:10px;
+          text-align:center;
       }
       #saisie{
+          margin-top:10%;
           display:flex;
-          justify-content : "center";
+          justify-content : center;
       }
+      #compteur{
+          
+      }
+      
       
   </style>
 </head>
@@ -30,7 +39,7 @@
     </div>
     <div id="saisie">
         <input id="typedLetter" type="text">
-        <button onClick="submit(this.value)">VALIDER</button>
+        <button onClick="submit(document.getElementById('typedLetter').value)">VALIDER</button>
     </div>
     <div id="compteur">
     </div>
@@ -66,18 +75,15 @@
             }
         }
         
-        function submit(){
+        function submit(letter){
             var letters = chosenWord.split('');
-            var letterTotest = document.getElementById('typedLetter');
-            var letterIndex = letters.indexOf(letterTotest);
             var letterExist = false;
             var indices = [];
+            var idx = letters.indexOf(letter);
             
-            var idx = letters.indexOf(letterTotest);
-            alert(letterTotest.innerHTML);
-            while (idx != -1) {
+            while (idx !== -1) {
               indices.push(idx);
-              idx = tableau.indexOf(élément, idx + 1);
+              idx = letters.indexOf(letter, idx + 1);
             }         
             
             if(indices.length > 0){
@@ -87,8 +93,10 @@
             if(letterExist){
                 //placer la letter a chaque indice
                 var lengthIndices = indices.length;
-                var lettersDiv = document.getElementByClass('letter');
-                for(var i =0; i < lengthIndices; i++){
+                var lettersDiv = document.getElementsByClassName('letter');
+                for(var i =0; i < lengthIndices; i++)
+                {
+                    alert(i);
                     lettersDiv[indices[i]].innerHTML = chosenWord.split('')[indices[i]];
                 }
             }
