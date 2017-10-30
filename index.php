@@ -17,18 +17,20 @@
           height:40px;
           margin-right:10px;
       }
+      #saisie{
+          display:flex;
+          justify-content : "center";
+      }
       
   </style>
 </head>
 <body>
     <div id="mot">
-        <div class="letter">
-            
-        </div>
+        
     </div>
     <div id="saisie">
-        <input type="text">
-        <button onClick="submit(this.value)">
+        <input id="typedLetter" type="text">
+        <button onClick="submit(this.value)">VALIDER</button>
     </div>
     <div id="compteur">
     </div>
@@ -57,7 +59,6 @@
         function placerLettres(){
             var length = chosenWord.split('').length;
             motDiv.innerHTML = '';
-            alert(length);
             
             for(var i=0; i < length; i++)
             {
@@ -66,7 +67,34 @@
         }
         
         function submit(){
-            alert('test');
+            var letters = chosenWord.split('');
+            var letterTotest = document.getElementById('typedLetter');
+            var letterIndex = letters.indexOf(letterTotest);
+            var letterExist = false;
+            var indices = [];
+            
+            var idx = letters.indexOf(letterTotest);
+            alert(letterTotest.innerHTML);
+            while (idx != -1) {
+              indices.push(idx);
+              idx = tableau.indexOf(élément, idx + 1);
+            }         
+            
+            if(indices.length > 0){
+                letterExist = true;
+            }
+           
+            if(letterExist){
+                //placer la letter a chaque indice
+                var lengthIndices = indices.length;
+                var lettersDiv = document.getElementByClass('letter');
+                for(var i =0; i < lengthIndices; i++){
+                    lettersDiv[indices[i]].innerHTML = chosenWord.split('')[indices[i]];
+                }
+            }
+            else{
+                decCompteur();
+            }
         }
         
         function init()
